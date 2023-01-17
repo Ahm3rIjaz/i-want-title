@@ -1,16 +1,14 @@
-const express = require('express')
-const cors = require('cors')
-const titleRouter = require('./controllers/title')
+const express = require('express');
+const titleRouter = require('./controllers/title');
 
-const app = express()
+const app = express();
 
-app.use(cors())
-app.set('view engine', 'pug')
+app.set('view engine', 'pug');
 
-app.use('/I/want/title', titleRouter)
+app.use('/I/want/title', titleRouter);
 
 app.use('*', (request, response) => {
-  response.status(404).send("Page not found")
+  response.status(404).send("Page not found");
 })
 
-module.exports = app
+module.exports = app;

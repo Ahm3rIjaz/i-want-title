@@ -1,6 +1,6 @@
-const app = require('./app')
-//const config = require('./utils/config')
+const app = require('./app');
+const config = require('./utils/config');
 
-app.listen(3005, () => {
-  console.log(`Server running on port ${3000}`)
+app.listen(config.PORT, () => {
+  console.log(`Server listening on port ${config.PORT}`);
 })
