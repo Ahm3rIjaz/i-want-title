@@ -19,20 +19,11 @@ const parseTitle = (body) => {
 
 const fetchURL = (url) => fetch(url)
   .then(response => response.text())
-  .then(body => parseTitle(body))
+  .then(body => [url, parseTitle(body)])
   .catch((error) => {
-    console.log(`error while fetching URL(${url}) :`, error);
-    return 'NO RESPONSE';
+    console.error(`error while fetching URL(${url}) :`, error);
+    return [url, 'NO RESPONSE'];
   })
-
-// const getAddresses = (addresses) => {
-//   const regex = new RegExp('^https://');
-//   return addresses.map(
-//     address => !regex.test(address)
-//       ? `https://${address.replace('http://', '')}/`
-//       : `${address}/`
-//   )
-// }
 
 const httpFetch = (url, callback = () => { }) => {
   https.get(url, (res) => {
@@ -47,7 +38,6 @@ const httpFetch = (url, callback = () => { }) => {
         })
 
         res.on('end', () => {
-          //console.log(data)
           callback([url, parseTitle(data)]);
         })
       })
@@ -57,7 +47,6 @@ const httpFetch = (url, callback = () => { }) => {
         data += chunk;
       })
       res.on('end', () => {
-        //console.log(data)
         callback([url, parseTitle(data)]);
       })
     }
